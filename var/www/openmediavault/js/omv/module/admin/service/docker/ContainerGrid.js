@@ -586,11 +586,7 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
                     height: 620,
                     editable: false,
                     grow: true,
-                    cls: "x-form-textarea-monospaced",
-                    fieldStyle: {
-                        fontFamily: "courier",
-                        fontSize: "12px"
-                    }
+                    cls: "x-form-textarea-monospaced"
                 }];
             }
         }).show();
@@ -625,11 +621,7 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
                     grow: false,
                     editable: false,
                     height: 620,
-                    cls: "x-form-textarea-monospaced",
-                    fieldStyle: {
-                       fontFamily: "courier",
-                       fontSize: "12px"
-                    }
+                    cls: "x-form-textarea-monospaced"
                 }];
             }
         }).show();

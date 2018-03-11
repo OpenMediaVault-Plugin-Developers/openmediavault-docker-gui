@@ -430,11 +430,7 @@ Ext.define("OMV.module.admin.service.docker.ImageGrid", {
                     height: 620,
                     editable: false,
                     grow: true,
-                    cls: "x-form-textarea-monospaced",
-                    fieldStyle: {
-                        fontFamily: "courier",
-                        fontSize: "12px"
-                    }
+                    cls: "x-form-textarea-monospaced"
                 }];
             }
         }).show();
