@@ -310,16 +310,19 @@ class OMVModuleDockerUtil
 
     /**
      * Returns an array with Containers for presentation in grid
-     *
+     * 
+     * @param string $datarootpath Docker data root directory from openmediavault docker settings
      * @return array $objects An array with Container objects
      *
      */
-    public static function getContainerList()
+    public static function getContainerList($datarootpath)
     {
+        
         $objects = array();
         $now = date("c");
         $url = "http::/containers/json?all=1";
         $response = OMVModuleDockerUtil::doApiCall($url);
+
         foreach (json_decode($response) as $item) {
             $ports = "";
             if (isset($item->Ports)) {
@@ -344,6 +347,8 @@ class OMVModuleDockerUtil
 
             $extraargs = $item->Labels->omv_docker_extra_args;
             $containercommand = $item->Labels->omv_docker_container_command;
+            $logsize = OMVModuleDockerUtil::getLogSize($datarootpath,$item->Id);
+
 
             array_push(
                 $objects,
@@ -360,6 +365,7 @@ class OMVModuleDockerUtil
                     ) . " ago",
                     "state" => $state,
                     "extraargs" => $extraargs,
+                    "logsize" => $logsize,
                     "containercommand" => $containercommand
                 )
             );
@@ -620,6 +626,41 @@ class OMVModuleDockerUtil
             }
         }
         return $objects;
+    }
+
+    /**
+     * Get the log size of a container
+     *
+     * @param string $datarootpath Absolute path for docker data root directory
+     * @param string $cid Container id
+     *
+     * @return integer
+     *
+     */
+    public static function getLogSize($datarootpath,$cid)
+    {
+        //Determine if the user is using a non-default docker datarootpath
+        if (empty($datarootpath)) {
+            $datarootpath = "/var/lib/docker";
+        }
+        //  Construct the log path based on the ID of the container. 
+        //  This is to avoid hammering the api with individual calls for low-level container info, because
+        //  "http::/containers/json?all=1"" does not return this information. This can cause slowness in the grid
+        //  rendering.
+        $logpath = "$datarootpath" . 
+            "/" . "containers" . "/" .
+            $cid . 
+            "/" . 
+            $cid .
+            "-json.log" ;
+        // Check if file exists. In some cases the log file does not exist. Data containers or some stack deploys
+        if (file_exists($logpath)) {
+            $logfilesize = filesize($logpath);
+        } else {
+            $logfilesize = "0";
+        }
+
+        return $logfilesize;
     }
 
 

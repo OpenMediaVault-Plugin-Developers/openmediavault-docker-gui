@@ -351,8 +351,6 @@ class OMVModuleDockerContainer
         }
 
         $this->_logPath = $containerData->LogPath;
-        //$logPath = $containerData->LogPath;
-        //print $logPath;
 
         $this->_hostName = "";
         if (!(strcmp($containerData->Config->Hostname, "") === 0)) {

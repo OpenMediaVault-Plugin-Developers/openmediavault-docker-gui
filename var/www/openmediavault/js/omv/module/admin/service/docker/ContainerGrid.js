@@ -101,6 +101,13 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
         stateId: 'state',
         filter: 'list'
     },{
+        xtype: "binaryunitcolumn",
+        text: _("LOG SIZE"),
+        dataIndex: 'logsize',
+        sortable: true,
+        stateId: 'logsize',
+        filter: 'list'
+    },{
         xtype: "textcolumn",
         text: _("EXTRA ARGUMENTS"),
         dataIndex: 'extraargs',
@@ -146,7 +153,8 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
                         { name: "hostname", type: "string" },
                         { name: "timesync", type: "boolean" },
                         { name: "imagevolumes", type: "array" },
-                        { name: "containercommand", type: "string" }
+                        { name: "containercommand", type: "string" },
+                        { name: "logsize", type: "integer" }
                     ]
                 }),
                 proxy: {
