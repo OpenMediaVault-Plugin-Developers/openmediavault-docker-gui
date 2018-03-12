@@ -426,8 +426,22 @@ class OMVRpcServiceDocker extends ServiceAbstract
         $objects = array();
         $settings=$this->database->getAssoc($this->dataModelPath);
 
+        // Determine if the user is using a non-default docker datarootpath
+        if (!empty($settings['sharedfolderref'])) {
+            $datarootpath = Rpc::call(
+                "ShareMgmt",
+                "getPath",
+                array(
+                    "uuid" => $settings['sharedfolderref']
+                ),
+                $context
+            );
+        } else {
+            $datarootpath = "/var/lib/docker";
+        }
+
         if ($settings['enabled']) {
-            $objects = OMVModuleDockerUtil::getContainerList();
+            $objects = OMVModuleDockerUtil::getContainerList($datarootpath);
         }
         return $objects;
     }
