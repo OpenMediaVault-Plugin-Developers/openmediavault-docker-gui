@@ -165,11 +165,11 @@ Ext.define("OMV.module.admin.service.docker.PullImage", {
                                 var repository = this.down('panel').getForm().findField("repository").getValue();
                                 var count = (repository.match(/\//g) || []).length;
                                 if (count > 1) {
-                                    window.open('http://' + repository); 
+                                    window.open('http://' + repository);
                                 } else if (count == 1) {
-                                    window.open('https://hub.docker.com/r/' + repository);   
+                                    window.open('https://hub.docker.com/r/' + repository);
                                 } else if (count == 0) {
-                                    window.open('https://hub.docker.com/_/' + repository); 
+                                    window.open('https://hub.docker.com/_/' + repository);
                                 }
 //                                window.open("https://hub.docker.com/r/" + this.down('panel').getForm().findField("repository").getValue());
                             }
@@ -184,9 +184,9 @@ Ext.define("OMV.module.admin.service.docker.PullImage", {
             items: [{
                 xtype: "textareafield",
                 name: "content",
-                cls: "x-form-textarea-monospaced",
+                cls: Ext.baseCSSPrefix + "form-textarea-monospaced",
                 value: me.welcomeText,
-                readOnly: true,
+                editable: false,
                 grow: true,
                 height: 340
             }]

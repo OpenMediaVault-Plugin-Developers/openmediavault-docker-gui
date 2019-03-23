@@ -30,7 +30,7 @@ Ext.define("OMV.module.admin.service.docker.Settings", {
     rpcService: "Docker",
     rpcGetMethod: "getSettings",
     rpcSetMethod: "setSettings",
-    
+
     initComponent : function() {
         this.on("load", function () {
             var me = this;
@@ -130,14 +130,16 @@ Ext.define("OMV.module.admin.service.docker.Settings", {
                 fieldLabel: "Version",
                 xtype: "textareafield",
                 name: "dockerVersion",
-                readOnly: true,
+                editable: false,
+                cls: Ext.baseCSSPrefix + "form-textarea-monospaced",
                 submitValue: false,
                 grow: true
             },{
                 fieldLabel: "Info",
                 xtype: "textareafield",
                 name: "dockerInfo",
-                readOnly: true,
+                editable: false,
+                cls: Ext.baseCSSPrefix + "form-textarea-monospaced",
                 submitValue: false,
                 grow: true
             }]

@@ -21,6 +21,7 @@
 // require("js/omv/module/admin/service/docker/RunContainer.js")
 // require("js/omv/module/admin/service/docker/CreateContainer.js")
 // require("js/omv/module/admin/service/docker/ExecuteCmd.js")
+// require("js/omv/module/admin/service/docker/DetailsDlg.js")
 // require("js/omv/workspace/grid/Panel.js")
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
@@ -41,14 +42,11 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
         "OMV.data.Store",
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
+        "OMV.module.admin.service.docker.DetailsDlg"
     ],
 
     stateful: true,
     stateId: "280eb3e7-c505-449c-9c84-1eb1b62b6b6a",
-
-    defaults: {
-        flex: 1
-    },
 
     columns: [{
         xtype: "textcolumn",
@@ -566,36 +564,12 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
 
     onDetailsButton: function() {
         var me = this;
-        var sm = me.getSelectionModel();
-        var records = sm.getSelection();
-        var record = records[0];
+        var record = me.getSelected();
 
-        var detailsWindow = Ext.create("OMV.workspace.window.Form", {
+        Ext.create("OMV.module.admin.service.docker.DetailsDlg", {
             title: _("Container details"),
-            rpcService: "Docker",
-            rpcGetMethod: "getDetails",
             rpcGetParams: {
                 id: record.get('id')
-            },
-            width: 800,
-            height: 700,
-            hideResetButton: true,
-            hideCancelButton: true,
-            okButtonText: _("Close"),
-            scrollable: false,
-
-            getFormItems: function() {
-                var me = this;
-
-                return [{
-                    xtype: "textareafield",
-                    name: "details",
-                    grow: false,
-                    height: 620,
-                    editable: false,
-                    grow: true,
-                    cls: "x-form-textarea-monospaced"
-                }];
             }
         }).show();
     },

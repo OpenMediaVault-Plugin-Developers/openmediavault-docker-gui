@@ -20,6 +20,7 @@
 // require("js/omv/module/admin/service/docker/BindMountRow.js")
 // require("js/omv/module/admin/service/docker/PullImage.js")
 // require("js/omv/module/admin/service/docker/RunContainer.js")
+// require("js/omv/module/admin/service/docker/DetailsDlg.js")
 // require("js/omv/workspace/grid/Panel.js")
 // require("js/omv/data/Store.js")
 
@@ -46,15 +47,12 @@ Ext.define("OMV.module.admin.service.docker.ImageGrid", {
         "OMV.module.admin.service.docker.EnvVarRow",
         "OMV.module.admin.service.docker.BindMountRow",
         "OMV.module.admin.service.docker.PullImage",
-        "OMV.module.admin.service.docker.RunContainer"
+        "OMV.module.admin.service.docker.RunContainer",
+        "OMV.module.admin.service.docker.DetailsDlg"
     ],
 
     stateful: true,
     stateId: "24eb8cc1-3b30-48d0-9309-f278a3ad42fb",
-
-    defaults: {
-        flex: 1
-    },
 
     searchStore: [],
 
@@ -402,36 +400,12 @@ Ext.define("OMV.module.admin.service.docker.ImageGrid", {
 
     onDetailsButton: function() {
         var me = this;
-        var sm = me.getSelectionModel();
-        var records = sm.getSelection();
-        var record = records[0];
+        var record = me.getSelected();
 
-        var detailsWindow = Ext.create("OMV.workspace.window.Form", {
+        Ext.create("OMV.module.admin.service.docker.DetailsDlg", {
             title: _("Image details"),
-            rpcService: "Docker",
-            rpcGetMethod: "getDetails",
             rpcGetParams: {
                 id: record.get('id')
-            },
-            width: 800,
-            height: 700,
-            hideResetButton: true,
-            hideCancelButton: true,
-            okButtonText: _("Close"),
-            scrollable: false,
-
-            getFormItems: function() {
-                var me = this;
-
-                return [{
-                    xtype: "textareafield",
-                    name: "details",
-                    grow: false,
-                    height: 620,
-                    editable: false,
-                    grow: true,
-                    cls: "x-form-textarea-monospaced"
-                }];
             }
         }).show();
     },
@@ -444,12 +418,12 @@ Ext.define("OMV.module.admin.service.docker.ImageGrid", {
         var repository = record.get("repository");
         var count = (repository.match(/\//g) || []).length;
         if (count > 1) {
-            window.open('http://' + record.get("repository")); 
+            window.open('http://' + record.get("repository"));
         } else if (count == 1) {
-            window.open('https://hub.docker.com/r/' + record.get("repository"));   
+            window.open('https://hub.docker.com/r/' + record.get("repository"));
         } else if (count == 0) {
-            window.open('https://hub.docker.com/_/' + record.get("repository")); 
+            window.open('https://hub.docker.com/_/' + record.get("repository"));
         }
-        
+
     }
 });
