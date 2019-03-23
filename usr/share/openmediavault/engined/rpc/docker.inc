@@ -1231,7 +1231,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
      * @param array  $params  An associative array with all RPC call parameters
      * @param string $context The context of the user maing the RPC call
      *
-     * @return array $object An associative array with all the new settings
+     * @return string The details info.
      */
     public function getDetails($params, $context)
     {
@@ -1242,7 +1242,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
         $cmd = "docker inspect " . $params['id'] . " 2>&1";
         $process = new Process($cmd);
         $process->execute($out);
-        return array("details" => implode("\n\r", $out));
+        return implode("\n", $out);
     }
 
     /**
