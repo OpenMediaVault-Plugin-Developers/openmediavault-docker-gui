@@ -11,10 +11,9 @@ Package: openmediavault-docker-gui
 Architecture: all
 Depends: docker-ce (>= 5:18.09),
          docker-ce (<< 5:18.10),
-         jq,
          omvextras-common,
-         openmediavault (>= 4.0.5),
-         openmediavault-omvextrasorg (>= 4.0.2),
+         openmediavault (>= 5.0),
+         openmediavault-omvextrasorg (>= 5.0),
          php-curl,
          php-imagick,
          ${misc:Depends},

@@ -22,7 +22,7 @@ case "$1" in
         fi
 
         # make config file
-        omv-mkconf docker
+        omv-salt deploy run docker
     ;;
 
 abort-upgrade|abort-remove|abort-deconfigure)

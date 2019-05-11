@@ -2,3 +2,4 @@ var/www/openmediavault/*    var/www/openmediavault
 usr/share/openmediavault/*  usr/share/openmediavault
 usr/share/omvdocker/*          usr/share/omvdocker
 etc/*   etc
+srv/*   srv

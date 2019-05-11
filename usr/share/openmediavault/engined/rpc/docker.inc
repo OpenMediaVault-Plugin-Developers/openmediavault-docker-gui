@@ -168,13 +168,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getMacVlan($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
 
-        $objects = array();
+        $objects = [];
         $objects = OMVModuleDockerUtil::getMacVlanNetworks();
         return $objects;
     }
@@ -190,13 +188,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getImages($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
 
-        $objects = array();
+        $objects = [];
         if ($settings['enabled']) {
             if ($settings["showDanglingImages"]) {
                 $incDangling = false;
@@ -219,19 +215,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function pullImage($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"repository": { "type" : "string" },' .
-            '"tag": { "type" : "string" }' .
-            '}}'
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.pullimage");
 
         if (strcmp($params['tag'], "") === 0) {
             $params['tag'] = "latest";
@@ -274,19 +261,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function deleteImage($params, $context)
     {
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"id": { "type" : "string" }' .
-            '}}'
-        );
-
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.deleteid");
         $cmd = "docker rmi " . $params['id'];
         $process = new Process($cmd);
         $process->execute();
@@ -302,11 +280,9 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function searchImages($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $objects = array();
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $objects = [];
         $settings=$this->database->getAssoc($this->dataModelPath);
 
         $url = "http::/images/search?term=" . $params["name"];
@@ -318,22 +294,22 @@ class OMVRpcServiceDocker extends ServiceAbstract
             case "all":
                 array_push(
                     $objects,
-                    array(
+                    [
                         "name" => $repo->name,
                         "description" => $repo->description,
                         "stars" => $repo->star_count
-                    )
+                    ]
                 );
                 break;
             case "trusted":
                 if ($repo->is_trusted) {
                     array_push(
                         $objects,
-                        array(
+                        [
                             "name" => $repo->name,
                             "description" => $repo->description,
                             "stars" => $repo->star_count
-                        )
+                        ]
                     );
                 }
                 break;
@@ -341,11 +317,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 if ($repo->is_official) {
                     array_push(
                         $objects,
-                        array(
+                        [
                             "name" => $repo->name,
                             "description" => $repo->description,
                             "stars" => $repo->star_count
-                        )
+                        ]
                     );
                 }
                 break;
@@ -353,22 +329,22 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 if ($repo->is_official && $repo->is_trusted) {
                     array_push(
                         $objects,
-                        array(
+                        [
                             "name" => $repo->name,
                             "description" => $repo->description,
                             "stars" => $repo->star_count
-                        )
+                        ]
                     );
                 }
                 break;
             default:
                 array_push(
                     $objects,
-                    array(
+                    [
                         "name" => $repo->name,
                         "description" => $repo->description,
                         "stars" => $repo->star_count
-                    )
+                    ]
                 );
                 break;
             }
@@ -387,15 +363,13 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getImageData($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $settings=$this->database->getAssoc($this->dataModelPath);
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
+        $settings=$this->database->getAssoc($this->dataModelPath);
         $image = OMVModuleDockerUtil::getImage($params['id']);
 
-        $object = array(
+        $object = [
             "repository" => rtrim(ltrim($image->getRepository(), "<"), ">"),
             "tag" => rtrim(ltrim($image->getTag(), "<"), ">"),
             "id" => $image->getId(),
@@ -404,7 +378,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
             "ports" => $image->getPorts(),
             "envvars" => $image->getEnvVars(),
             "imagevolumes" => $image->getVolumes()
-        );
+        ];
         return $object;
     }
 
@@ -418,12 +392,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getContainers($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
-        $objects = array();
+        $objects = [];
         $settings=$this->database->getAssoc($this->dataModelPath);
 
         // Determine if the user is using a non-default docker datarootpath
@@ -431,9 +403,9 @@ class OMVRpcServiceDocker extends ServiceAbstract
             $datarootpath = Rpc::call(
                 "ShareMgmt",
                 "getPath",
-                array(
+                [
                     "uuid" => $settings['sharedfolderref']
-                ),
+                ],
                 $context
             );
         } else {
@@ -456,18 +428,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function runContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         $cmd = "docker run -d ";
-
-        //Check if restart checkbox is enabled
-        //if ($params['restartpolicy']) {
-        //    $cmd .= "--restart=always ";
-        //}
-
         switch ($params['restartpolicy']) {
             case "always":
                 $cmd .= "--restart=always ";
@@ -486,8 +450,6 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 }
                 break;
         }
-
-
 
         //Check if privileged checkbox is enabled
         if ($params['privileged']) {
@@ -599,11 +561,9 @@ class OMVRpcServiceDocker extends ServiceAbstract
           $cmd .= $containerCommand . " ";
         }
 
-        //Add redirection to command
-        $cmd .= "2>&1";
-
         //throw new OMVModuleDockerException($cmd);
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
 
     }
@@ -618,10 +578,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function modifyContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
 
         $container = OMVModuleDockerUtil::getContainer($params['cid']);
@@ -630,13 +588,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
 
         $restartpolicy = $container->getRestartPolicy();
         $maxretries = $container->getMaxRetries();
-        //if (strcmp($container->getRestartPolicy(), "always") === 0) {
-         //   $restart = true;
-        //}
         $networkMode = $container->getNetworkMode();
         $macvlan_network = $container->getMacVlanContainerNetwork();
         $macvlan_ipaddress = $container->getMacVlanContainerIpAddress();
-        $portForwards = array();
+        $portForwards = [];
         foreach ($container->getPortBindings() as $binding) {
             $customPort = "";
             $exposedPort = "";
@@ -650,37 +605,37 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 $customPort = explode("/", $binding['containerportstring'])[0];
             }
             array_push($portForwards,
-                array(
+                [
                     "customPort" => $customPort,
                     "exposedPort" => $exposedPort,
                     "hostip" => $binding['hostip'],
                     "hostport" => $binding['hostport'],
                     "proto" => $binding['proto']
-                )
+                ]
             );
 
         }
-        $envVars = array();
+        $envVars = [];
         foreach ($container->getEnvironmentVariables() as $key => $value) {
             array_push($envVars,
-                array(
+                [
                     "name" => $key,
                     "value" => $value
-                )
+                ]
             );
         }
-        $bindMounts = array();
+        $bindMounts = [];
         foreach($container->getBindMounts() as $mount) {
             array_push($bindMounts,
-                array(
+                [
                     "from" => $mount['from'],
                     "to" => $mount['to'],
                     "romode" => $mount['mode']
-                )
+                ]
             );
         }
 
-        $old_params = array(
+        $old_params = [
             "restartpolicy" => $restartpolicy,
             "maxretries" => $maxretries,
             "privileged" => $container->getPrivileged(),
@@ -697,7 +652,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
             "containerName" => $container->getName(),
             "image" => $container->getImage(),
             "containerCommand" => $container->getContainerCommand()
-        );
+        ];
 
         //Remove existing container
         $cmd = "docker stop " . $params['cid'] . " && docker rm " . $params['cid'];
@@ -715,7 +670,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
         } catch (OMVModuleDockerException $e) {
             $this->runContainer($old_params, $context);
             $e_str = explode("'", (string)$e);
-            return (array("response" => $e_str[3]));
+            return (["response" => $e_str[3]]);
         }
     }
 
@@ -729,12 +684,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function startContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker start " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker start " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
     }
 
@@ -748,12 +702,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function stopContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker stop " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker stop " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
     }
 
@@ -767,12 +720,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function restartContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker restart " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker restart " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
     }
 
@@ -786,21 +738,13 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function deleteContainer($params, $context)
     {
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"id": { "type" : "string" }' .
-            '}}'
-        );
-
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker rm " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.deleteid");
+        $cmd = "docker rm " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
     }
 
@@ -814,10 +758,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function clearLog($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
         $ids = explode(" ", $params['id']);
         foreach ($ids as $id) {
@@ -839,10 +781,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function createContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $cmd = "docker create ";
 
         //Check for bind mounts
@@ -885,18 +825,16 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getVolumesFrom($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $objects = array();
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $objects = [];
         $settings=$this->database->getAssoc($this->dataModelPath);
 
         if ($settings['enabled']) {
             $containers = OMVModuleDockerUtil::getContainers();
             foreach ($containers as $container) {
                 if ($container['hasmounts']) {
-                    array_push($objects, array("name" => $container['name']));
+                    array_push($objects, ["name" => $container['name']]);
                 }
             }
         }
@@ -913,12 +851,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function commitContainer($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker commit " . $params['name'] . " " . $params['newImage'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker commit " . $params['name'] . " " . $params['newImage'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute();
     }
 
@@ -932,13 +869,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function modifyWarningEnabled($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
         if ($settings["cwarn"]) {
-            return array("response" => "true");
+            return ["response" => "true"];
         } else {
             return null;
         }
@@ -954,20 +889,18 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function refreshContainers($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
         $image = $params['image'];
         $containers = OMVModuleDockerUtil::getContainers();
 
         foreach ($containers as $c) {
             if (strcmp($c['image'], $image) === 0) {
-                $new_params = array(
+                $new_params = [
                     "cid" => $c['id'],
                     "refresh" => true
-                );
+                ];
                 $this->modifyContainer($new_params, $context);
             }
         }
@@ -983,10 +916,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getContainerData($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
         $container = OMVModuleDockerUtil::getContainer($params['id']);
         $ports = "";
@@ -1005,7 +936,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
         $image = OMVModuleDockerUtil::getImage(
             substr($container->getImageId(), 0, 12));
 
-        $object = array(
+        $object = [
             "id" => $container->getId(),
             "image" => $container->getImage(),
             "command" => $container->getCommand(),
@@ -1032,7 +963,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
             "timesync" => $container->syncsTime(),
             "imagevolumes" => $image->getVolumes(),
             "containercommand" => $container->getContainerCommand()
-        );
+        ];
         return $object;
     }
 
@@ -1046,13 +977,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getNetworks($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings=$this->database->getAssoc($this->dataModelPath);
 
-        $objects = array();
+        $objects = [];
         if ($settings['enabled']) {
             $objects = OMVModuleDockerUtil::getNetworkList();
         }
@@ -1069,10 +998,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function createNetwork($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $cmd = "docker network create " .
         "-d {$params['driver']} --subnet={$params['subnet']} ".
         "--gateway={$params['gateway']} -o parent={$params['parent']} " .
@@ -1092,19 +1019,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function deleteNetwork($params, $context)
     {
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"name": { "type" : "string" }' .
-            '}}'
-        );
-
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.deletename");
         $cmd = "docker network rm {$params['name']}";
         $process = new Process($cmd);
         $process->execute();
@@ -1121,15 +1039,14 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getSettings($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         $dockerVersion = "0";
         $dockerVersionTxt = "";
-        $cmd = "docker --version 2>&1";
+        $cmd = "docker --version";
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $out = $process->execute();
 
         if (!preg_match('/^Docker version.*$/', $out, $matches)) {
@@ -1178,21 +1095,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
 
     public function setSettings($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"enabled": {   "type": "boolean" },' .
-            '"sharedfolderref": { "type": "string" },' .
-            '"cwarn": { "type": "boolean"}' .
-            '}}'
-        );
-
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.setsettings");
 
         //Get the old settings object
         $oldSettings = $this->database->getAssoc($this->dataModelPath);
@@ -1206,11 +1112,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
         }
 
         // Update the configuration object.
-        $object = array(
+        $object = [
             "enabled" => array_boolval($params, "enabled"),
             "sharedfolderref" => $params['sharedfolderref'],
             "cwarn" => array_boolval($params, "cwarn")
-        );
+        ];
 
         $config = new ConfigObject($this->dataModelPath);
         $config->setAssoc($object);
@@ -1235,12 +1141,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getDetails($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker inspect " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker inspect " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute($out);
         return implode("\n", $out);
     }
@@ -1255,14 +1160,13 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getLogs($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $cmd = "docker logs " . $params['id'] . " 2>&1";
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $cmd = "docker logs " . $params['id'];
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute($out);
-        return array("logs" => implode("\n\r", $out));
+        return ["logs" => implode("\n\r", $out)];
     }
 
     /**
@@ -1275,13 +1179,11 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getRootFolders($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         // List the directory contents.
-        $result = array();
+        $result = [];
         $path = sprintf("/%s", rtrim($params['path'], "/"));
         if (strlen($path) == 0) {
             $path = "/";
@@ -1309,19 +1211,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function copyDockerData($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"srcpath": {   "type": "string" },' .
-            '"sharedfolderref": {   "type": "string" }' .
-            '}}'
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.copydockerdata");
 
         $absPath = "";
         if ($params['sharedfolderref']) {
@@ -1396,19 +1289,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function executeCommand($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
-        $this->validateMethodParams(
-            $params,
-            '{' .
-            '"type": "object",' .
-            '"properties": {' .
-            '"cmd": { "type" : "string" },' .
-            '"containerId": { "type" : "string" }' .
-            '}}'
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.docker.executecommand");
 
         // Create a background process.
         $bgStatusFilename = $this->createBgProcStatus();
@@ -1447,10 +1331,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function syncDockerLogos($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $logoPath = "/var/www/openmediavault/images/dockerrepo/";
         $cmd = "mkdir -p $logoPath";
         $process = new Process($cmd);
@@ -1515,15 +1397,14 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getDockerRepo($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $settings = $this->database->getAssoc($this->dataModelPath);
 
-        $pulledImages = array();
-        $cmd = "docker images 2>&1";
+        $pulledImages = [];
+        $cmd = "docker images";
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute($out);
         for ($i = 1; $i < count($out); $i++) {
             preg_match('/^([\S]+)\s+\S+\s+([\S]+).*$/', $out[$i], $matches);
@@ -1542,7 +1423,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
             $repoUrl = sprintf("%sdockerlist_%s.xml", $baseUrl, $this->getArch());
             $data = file_get_contents($repoUrl);
             $xml = simplexml_load_string($data);
-            $objects = array();
+            $objects = [];
             foreach ($xml as $image) {
                 //Use blank logo if no logo is found
                 $logo = "";
@@ -1553,7 +1434,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 if ((strlen($image->name) === 0) || (strlen($image->desc) === 0) || (strlen($image->category) === 0) || (strlen($image->repo) === 0)) {
                     continue;
                 } else {
-                    $ports_ary = array();
+                    $ports_ary = [];
                     $pulled = false;
                     $imgRepo = trim((string)$image->repo);
                     if (isset($pulledImages[$imgRepo])) {
@@ -1563,7 +1444,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
                         );
                         $ports_ary = $image_obj->getPorts();
                     }
-                    $temp = array("name" => (string)$image->name,
+                    $temp = ["name" => (string)$image->name,
                         "category" => (string)$image->category,
                         "logo" => (string)$logo,
                         "desc" => (string)$image->desc,
@@ -1572,13 +1453,13 @@ class OMVRpcServiceDocker extends ServiceAbstract
                         "timesync" => true,
                         "restartpolicy" => "always",
                         "privileged" => false,
-                        "cenvvars" => array(),
-                        "envvars" => array(),
+                        "cenvvars" => [],
+                        "envvars" => [],
                         "ports" => $ports_ary,
-                        "portbindings" => array(),
+                        "portbindings" => [],
                         "extraargs" => "",
                         "isupdated" => false
-                    );
+                    ];
                     array_push($objects, $temp);
                 }
             }
@@ -1590,8 +1471,8 @@ class OMVRpcServiceDocker extends ServiceAbstract
             $data = json_decode($json);
             foreach ($data->applist as $image) {
 
-                $cenv_ary = array();
-                $ports_ary = array();
+                $cenv_ary = [];
+                $ports_ary = [];
                 $pulled = false;
                 $updated = false;
                 $imgRepo = trim((string)$image->Repository);
@@ -1625,19 +1506,18 @@ class OMVRpcServiceDocker extends ServiceAbstract
                 $cenv_ary["PUID"] = 65534;
                 $cenv_ary["PGID"] = 65534;
                 $nw_mode = ucfirst(trim((string)$image->Networking->Mode));
-                $port_bindings = array();
+                $port_bindings = [];
                 if (strcmp($nw_mode, "Bridge") === 0) {
                     foreach ($image->Networking->Publish[0]->Port as $port) {
                         array_push(
                             $port_bindings,
-                            array(
+                            [
                                 "containerportstring" => trim((string)$port->ContainerPort) . "/" . trim((string)$port->Protocol),
                                 "containerportnr" => trim((string)$port->ContainerPort),
                                 "hostip" => "0.0.0.0",
                                 "hostport" => trim((string)$port->HostPort),
                                 "proto" => "Select"
-                            ));
-
+                            ]);
                     }
                 }
                 $extraargs = "";
@@ -1667,7 +1547,7 @@ class OMVRpcServiceDocker extends ServiceAbstract
                     $desc = trim((string)$image->Overview);
                 }
 
-                $temp = array("name" => trim((string)$image->Name),
+                $temp = ["name" => trim((string)$image->Name),
                     "category" => $categories,
                     "logo" => $logo,
                     "desc" => $desc,
@@ -1677,13 +1557,13 @@ class OMVRpcServiceDocker extends ServiceAbstract
                     "restartpolicy" => "always",
                     "privileged" => $privileged,
                     "cenvvars" => $cenv_ary,
-                    "envvars" => array(),
+                    "envvars" => [],
                     "ports" => $ports_ary,
                     "networkmode" => $nw_mode,
                     "portbindings" => $port_bindings,
                     "extraargs" => $extraargs,
                     "isupdated" => $updated
-                );
+                ];
                 array_push($objects, $temp);
         }
         }catch (Exception $e){
@@ -1706,18 +1586,17 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function connectNetwork($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         if (empty($params['ipaddress'])) {
-            $cmd = "docker network connect " . $params['networkname'] . " " . $params['containername'] . " 2>&1";
+            $cmd = "docker network connect " . $params['networkname'] . " " . $params['containername'];
         } elseif (isset($params['ipaddress'])) {
-            $cmd = "docker network connect " . "--ip " . $params['ipaddress'] . " " . $params['networkname'] . " " . $params['containername'] . " 2>&1";
+            $cmd = "docker network connect " . "--ip " . $params['ipaddress'] . " " . $params['networkname'] . " " . $params['containername'];
         }
         $process = new Process($cmd);
+        $process->setRedirect2to1();
         $process->execute($out);
-        return array("details" => implode("\n\r", $out));
+        return ["details" => implode("\n\r", $out)];
     }
 
     /**
@@ -1730,15 +1609,14 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function disconnectNetwork($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         foreach ($params['containername'] as $container) {
-            $cmd = "docker network disconnect " . $params['networkname'] . " " . $container . " 2>&1";
+            $cmd = "docker network disconnect " . $params['networkname'] . " " . $container;
             $process = new Process($cmd);
+            $process->setRedirect2to1();
             $process->execute($out);
-            return array("details" => implode("\n\r", $out));
+            return ["details" => implode("\n\r", $out)];
         }
     }
 
@@ -1754,12 +1632,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getContainersNotInSelectedNetwork($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
-        $objects = array();
+        $objects = [];
         $settings=$this->database->getAssoc($this->dataModelPath);
         if ($settings['enabled']) {
             $objects = OMVModuleDockerUtil::getContainersNotInSelectedNetworkList($params['selectednetwork']);
@@ -1777,12 +1653,10 @@ class OMVRpcServiceDocker extends ServiceAbstract
      */
     public function getContainersInSelectedNetwork($params, $context)
     {
-        $this->validateMethodContext(
-            $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
-        );
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
-        $objects = array();
+        $objects = [];
         $settings=$this->database->getAssoc($this->dataModelPath);
         if ($settings['enabled']) {
             $objects = OMVModuleDockerUtil::getContainersInSelectedNetworkList($params['selectednetwork']);

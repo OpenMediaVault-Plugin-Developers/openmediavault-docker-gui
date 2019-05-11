@@ -1,0 +1,84 @@
+[{
+	"type": "rpc",
+	"id": "rpc.docker.setsettings",
+	"params": {
+		"type": "object",
+		"properties": {
+			"enabled": {
+				"type": "boolean",
+				"required": true
+			},
+			"sharedfolderref": {
+				"type": "string"
+			},
+			"cwarn": {
+				"type": "boolean",
+				"required": true
+			}
+		}
+	}
+},{
+	"type": "rpc",
+	"id": "rpc.docker.copydockerdata",
+	"params": {
+		"type": "object",
+		"properties": {
+			"srcpath": {
+				"type": "string"
+			},
+			"sharedfolderref": {
+				"type": "string"
+			}
+		}
+	}
+},{
+	"type": "rpc",
+	"id": "rpc.docker.deleteid",
+	"params": {
+		"type": "object",
+		"properties": {
+			"id": {
+				"type": "string"
+			}
+		}
+	}
+},{
+	"type": "rpc",
+	"id": "rpc.docker.deletename",
+	"params": {
+		"type": "object",
+		"properties": {
+			"name": {
+				"type": "string"
+			}
+		}
+	}
+},{
+	"type": "rpc",
+	"id": "rpc.docker.executecommand",
+	"params": {
+		"type": "object",
+		"properties": {
+			"cmd": {
+				"type": "string"
+			},
+			"containerId": {
+				"type": "string"
+			}
+		}
+	}
+},{
+	"type": "rpc",
+	"id": "rpc.docker.pullimage",
+	"params": {
+		"type": "object",
+		"properties": {
+			"repository": {
+				"type": "string"
+			},
+			"tag": {
+				"type": "string"
+			}
+		}
+	}
+}]

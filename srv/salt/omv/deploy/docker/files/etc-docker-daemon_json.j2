@@ -1,0 +1,7 @@
+{{ pillar['headers']['multiline'] }}
+{
+{%- if config.sharedfolderref | length > 0 -%}
+{%- set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) -%}
+  "data-root": {{ sfpath }}
+{%- endif %}
+}
