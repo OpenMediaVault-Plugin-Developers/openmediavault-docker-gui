@@ -7,24 +7,31 @@ set -e
 
 CONFIG="/config/services/docker"
 
+remove_action() {
+    # Activate trigger to purge cached files.
+    dpkg-trigger update-fixperms
+}
+
 case "$1" in
     remove)
-        ;;
+        remove_action
+    ;;
 
     purge)
-        if omv_config_exists $CONFIG; then
+        remove_action
+        if omv_config_exists ${CONFIG}; then
             echo "Deleting Configuration"
-            omv_config_delete $CONFIG;
+            omv_config_delete ${CONFIG};
         fi
-        ;;
+    ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-        ;;
+    ;;
 
     *)
         echo "postrm called with unknown argument \`$1'" >&2
         exit 1
-        ;;
+    ;;
 esac
 
 exit 0

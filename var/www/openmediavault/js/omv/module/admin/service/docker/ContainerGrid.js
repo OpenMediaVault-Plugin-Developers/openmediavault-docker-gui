@@ -179,38 +179,36 @@ Ext.define("OMV.module.admin.service.docker.ContainerGrid", {
             handler: Ext.Function.bind(me.onCreateButton, me, [ me ]),
             scope: me
         },{
-            xtype: "splitbutton",
-            text: "Start",
+            xtype: "button",
+            text: _("Start"),
             icon: "images/play.png",
             iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
             scope: me,
-            menu: Ext.create("Ext.menu.Menu", {
-                items: [{
-                    id: me.getId() + "-start",
-                    text: _("Start"),
-                    disabled: true,
-                    iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
-                    icon: "images/play.png",
-                    handler: Ext.Function.bind(me.onStartButton, me, [ me ]),
-                    scope: me
-                },{
-                    id: me.getId() + "-stop",
-                    text: _("Stop"),
-                    disabled: true,
-                    iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
-                    icon: "images/docker_stop.png",
-                    handler: Ext.Function.bind(me.onStopButton, me, [ me ]),
-                    scope: me
-                },{
-                    id: me.getId() + "-restart",
-                    text: _("Restart"),
-                    disabled: true,
-                    iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
-                    icon: "images/undo.png",
-                    handler: Ext.Function.bind(me.onRestartButton, me, [ me ]),
-                    scope: me
-                }]
-            })
+            menu: [{
+                id: me.getId() + "-start",
+                text: _("Start"),
+                disabled: true,
+                iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+                icon: "images/play.png",
+                handler: Ext.Function.bind(me.onStartButton, me, [ me ]),
+                scope: me
+            },{
+                id: me.getId() + "-stop",
+                text: _("Stop"),
+                disabled: true,
+                iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+                icon: "images/docker_stop.png",
+                handler: Ext.Function.bind(me.onStopButton, me, [ me ]),
+                scope: me
+            },{
+                id: me.getId() + "-restart",
+                text: _("Restart"),
+                disabled: true,
+                iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+                icon: "images/undo.png",
+                handler: Ext.Function.bind(me.onRestartButton, me, [ me ]),
+                scope: me
+            }]
         },{
             id: me.getId() + "-copy",
             xtype: "button",
