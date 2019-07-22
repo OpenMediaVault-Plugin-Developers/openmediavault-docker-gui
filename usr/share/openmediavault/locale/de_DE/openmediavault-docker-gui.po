@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the openmediavault-docker-gui package.
 # 
 # Translators:
+# Jan E. <zoinc@posteo.de>, 2019
 # WastlJ, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-docker-gui\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-17 07:38-0600\n"
-"PO-Revision-Date: 2019-01-17 13:38+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2019-01-30 20:31+0000\n"
+"Last-Translator: Jan E. <zoinc@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-docker-gui/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgid "Action"
 msgstr ""
 
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 msgid "Bad input"
 msgstr "Falsche Eingabe"
@@ -37,22 +38,22 @@ msgid "CONTAINER ID"
 msgstr "CONTAINER ID"
 
 msgid "CONTAINERS"
-msgstr ""
+msgstr "CONTAINER"
 
 msgid "CREATED"
 msgstr "ERSTELLT"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 msgid "Clear Log"
-msgstr ""
+msgstr "Log löschen"
 
 msgid "Close"
 msgstr "Schließen"
 
 msgid "Command"
-msgstr ""
+msgstr "Befehl"
 
 msgid "Commit"
 msgstr ""
@@ -61,13 +62,13 @@ msgid "Connect"
 msgstr ""
 
 msgid "Connect Network"
-msgstr ""
+msgstr "Verbinde Netzwerk"
 
 msgid "Connect network"
 msgstr ""
 
 msgid "Container"
-msgstr ""
+msgstr "Container"
 
 msgid "Container command"
 msgstr ""
@@ -76,7 +77,7 @@ msgid "Container details"
 msgstr "Container Details"
 
 msgid "Container logs"
-msgstr ""
+msgstr "Container Log"
 
 msgid "Container name"
 msgstr "Container Name"
@@ -100,37 +101,37 @@ msgid "Create network"
 msgstr ""
 
 msgid "DRIVER"
-msgstr ""
+msgstr "TREIBER"
 
 msgid "Delete"
 msgstr "Löschen"
 
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 msgid "Details"
 msgstr "Details"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Trenne"
 
 msgid "Disconnect Network"
-msgstr ""
+msgstr "Trenne Netzwerk"
 
 msgid "Disconnect network"
-msgstr ""
+msgstr "Trenne Netzwerk"
 
 msgid "Docker"
 msgstr "Docker"
 
 msgid "Docker Containers"
-msgstr ""
+msgstr "Docker Container"
 
 msgid "Docker Images"
 msgstr ""
 
 msgid "Docker Network"
-msgstr ""
+msgstr "Docker Netzwerk"
 
 msgid "Docker image"
 msgstr "Docker Image"
@@ -142,7 +143,7 @@ msgid "EXTRA ARGUMENTS"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Editiere"
 
 msgid "Enable the plugin"
 msgstr "Plugin aktivieren"
@@ -151,13 +152,13 @@ msgid "Environment variables"
 msgstr "Umgebungsvariablen"
 
 msgid "Execute command"
-msgstr ""
+msgstr "Befehl ausführen"
 
 msgid "Extra args"
 msgstr ""
 
 msgid "Extra arguments"
-msgstr ""
+msgstr "Extra Argumente"
 
 msgid "Gateway"
 msgstr ""
@@ -169,7 +170,7 @@ msgid "Host name"
 msgstr ""
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IMAGE"
 msgstr "IMAGE"
@@ -178,7 +179,7 @@ msgid "IMAGE ID"
 msgstr "IMAGE ID"
 
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adresse"
 
 msgid "Image details"
 msgstr "Image Details"
@@ -193,25 +194,25 @@ msgid "Information"
 msgstr "Information"
 
 msgid "Ip Address"
-msgstr ""
+msgstr "IP Adresse"
 
 msgid "It is not possible to modify a data container."
 msgstr ""
 
 msgid "LOG SIZE"
-msgstr ""
+msgstr "LOG GRÖSSE"
 
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 msgid "Logs"
-msgstr ""
+msgstr "Logs"
 
 msgid "Macvlan settings"
-msgstr ""
+msgstr "Macvlan Einstellung"
 
 msgid "Modify"
-msgstr ""
+msgstr "Modifizieren"
 
 msgid "Modify container"
 msgstr ""
@@ -232,7 +233,7 @@ msgid "Name"
 msgstr ""
 
 msgid "Network driver"
-msgstr ""
+msgstr "Netzwerktreiber"
 
 msgid "Network mode"
 msgstr "Netzwerkmodus"
@@ -317,7 +318,7 @@ msgid "Run Image"
 msgstr "Image starten"
 
 msgid "Run cmd"
-msgstr ""
+msgstr "Kommando ausführen"
 
 msgid "Run container"
 msgstr "Container starten"
@@ -338,7 +339,7 @@ msgid "STATUS"
 msgstr "STATUS"
 
 msgid "SUBNET"
-msgstr ""
+msgstr "SUBNETZ"
 
 msgid "Search"
 msgstr "Suchen"
@@ -365,7 +366,7 @@ msgid "Stop"
 msgstr "Stop"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Subnetz"
 
 msgid "Sync time with host"
 msgstr ""
@@ -390,7 +391,7 @@ msgid "This command and any arguments will be passed to the container"
 msgstr ""
 
 msgid "This setting does not stop/disable or start/enable the docker daemon"
-msgstr ""
+msgstr "Diese Einstellung stoppt/deaktiviert oder startet/aktiviert NICHT den Docker Daemon."
 
 msgid "Undo"
 msgstr ""

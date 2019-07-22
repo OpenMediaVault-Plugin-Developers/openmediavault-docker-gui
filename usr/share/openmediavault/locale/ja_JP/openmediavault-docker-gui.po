@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault-docker-gui package.
 # 
 # Translators:
-# Toshihiro Kan <kansuke4649@gmail.com>, 2015
+# Toshihiro Kan <kansuke4649@gmail.com>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-docker-gui\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-17 07:38-0600\n"
-"PO-Revision-Date: 2019-01-17 13:38+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2019-02-25 04:30+0000\n"
+"Last-Translator: Toshihiro Kan <kansuke4649@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-docker-gui/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,10 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 msgid "Bad input"
 msgstr "不正な入力"
@@ -31,52 +31,52 @@ msgid "COMMAND"
 msgstr "コマンド"
 
 msgid "CONTAINER COMMAND"
-msgstr ""
+msgstr "コンテナコマンド"
 
 msgid "CONTAINER ID"
 msgstr "コンテナID"
 
 msgid "CONTAINERS"
-msgstr ""
+msgstr "コンテナ"
 
 msgid "CREATED"
 msgstr "作成済み"
 
 msgid "Category"
-msgstr ""
+msgstr "カテゴリ"
 
 msgid "Clear Log"
-msgstr ""
+msgstr "ログのクリア"
 
 msgid "Close"
 msgstr "閉じる"
 
 msgid "Command"
-msgstr ""
+msgstr "コマンド"
 
 msgid "Commit"
-msgstr ""
+msgstr "コミット"
 
 msgid "Connect"
-msgstr ""
+msgstr "接続"
 
 msgid "Connect Network"
-msgstr ""
+msgstr "ネットワークに接続"
 
 msgid "Connect network"
-msgstr ""
+msgstr "ネットワークに接続"
 
 msgid "Container"
-msgstr ""
+msgstr "コンテナ"
 
 msgid "Container command"
-msgstr ""
+msgstr "コンテナコマンド"
 
 msgid "Container details"
 msgstr "コンテナの詳細"
 
 msgid "Container logs"
-msgstr ""
+msgstr "コンテナログ"
 
 msgid "Container name"
 msgstr "コンテナ名"
@@ -88,61 +88,61 @@ msgid "Copy container"
 msgstr "コンテナのコピー"
 
 msgid "Copy data container"
-msgstr ""
+msgstr "データコンテナのコピー"
 
 msgid "Create"
-msgstr ""
+msgstr "作成"
 
 msgid "Create data container"
-msgstr ""
+msgstr "データコンテナの作成"
 
 msgid "Create network"
-msgstr ""
+msgstr "ネットワークの作成"
 
 msgid "DRIVER"
-msgstr ""
+msgstr "ドライバー"
 
 msgid "Delete"
 msgstr "削除"
 
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 msgid "Details"
 msgstr "詳細"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "切断"
 
 msgid "Disconnect Network"
-msgstr ""
+msgstr "ネットワークの切断"
 
 msgid "Disconnect network"
-msgstr ""
+msgstr "ネットワークの切断"
 
 msgid "Docker"
 msgstr "Docker"
 
 msgid "Docker Containers"
-msgstr ""
+msgstr "Docker コンテナ"
 
 msgid "Docker Images"
-msgstr ""
+msgstr "Docker イメージ"
 
 msgid "Docker Network"
-msgstr ""
+msgstr "Docker ネットワーク"
 
 msgid "Docker image"
 msgstr "Docker イメージ"
 
 msgid "Docker images repo"
-msgstr ""
+msgstr "Docker イメージリポジトリ"
 
 msgid "EXTRA ARGUMENTS"
-msgstr ""
+msgstr "追加の引数"
 
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 msgid "Enable the plugin"
 msgstr "プラグインを有効化"
@@ -151,25 +151,25 @@ msgid "Environment variables"
 msgstr "環境変数"
 
 msgid "Execute command"
-msgstr ""
+msgstr "実効コマンド"
 
 msgid "Extra args"
-msgstr ""
+msgstr "追加の引数"
 
 msgid "Extra arguments"
-msgstr ""
+msgstr "追加の引数"
 
 msgid "Gateway"
-msgstr ""
+msgstr "ゲートウェイ"
 
 msgid "General"
 msgstr "一般"
 
 msgid "Host name"
-msgstr ""
+msgstr "ホスト名"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IMAGE"
 msgstr "イメージ"
@@ -178,7 +178,7 @@ msgid "IMAGE ID"
 msgstr "イメージID"
 
 msgid "IP Address"
-msgstr ""
+msgstr "IPアドレス"
 
 msgid "Image details"
 msgstr "イメージの詳細"
@@ -193,64 +193,64 @@ msgid "Information"
 msgstr "情報"
 
 msgid "Ip Address"
-msgstr ""
+msgstr "IPアドレス"
 
 msgid "It is not possible to modify a data container."
-msgstr ""
+msgstr "データコンテナを変更することはできません。"
 
 msgid "LOG SIZE"
-msgstr ""
+msgstr "ログサイズ"
 
 msgid "Logo"
-msgstr ""
+msgstr "ロゴ"
 
 msgid "Logs"
-msgstr ""
+msgstr "ログ"
 
 msgid "Macvlan settings"
-msgstr ""
+msgstr "Macvlan 設定"
 
 msgid "Modify"
-msgstr ""
+msgstr "変更"
 
 msgid "Modify container"
-msgstr ""
+msgstr "コンテナの変更"
 
 msgid "Modify container failed with message: </br>"
-msgstr ""
+msgstr "コンテナーの変更がメッセージと共に失敗しました: </br>"
 
 msgid "Modify operation failed"
-msgstr ""
+msgstr "変更処理が失敗しました"
 
 msgid "NAME"
-msgstr ""
+msgstr "名前"
 
 msgid "NAMES"
 msgstr "名前"
 
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 msgid "Network driver"
-msgstr ""
+msgstr "ネットワークドライバ"
 
 msgid "Network mode"
 msgstr "ネットワークモード"
 
 msgid "Network name"
-msgstr ""
+msgstr "ネットワーク名"
 
 msgid "Networking"
 msgstr "ネットワーキング"
 
 msgid "Networks"
-msgstr ""
+msgstr "ネットワーク"
 
 msgid "No matching repositories found."
-msgstr ""
+msgstr "一致するリポジトリが見つかりませんでした。"
 
 msgid "Number of retries for on-failure mode"
-msgstr ""
+msgstr "失敗モードでのリトライ回数"
 
 msgid "Output"
 msgstr "出力"
@@ -265,7 +265,7 @@ msgid "Parameters"
 msgstr "パラメータ"
 
 msgid "Parent"
-msgstr ""
+msgstr "親"
 
 msgid ""
 "Please be aware that <b>all</b> non-persistent data within the "
@@ -275,13 +275,13 @@ msgid ""
 "-openmediavault-docker-gui-Testing/?postID=101996#post102450' "
 "target='_blank'>Link</a></br>This warning can be disabled on the Settings "
 "tab"
-msgstr ""
+msgstr "コンテナ内の<b>すべて</b>の非永続データが</br><b>削除</b>されることに注意してください。</br>詳細については、こちらを参照してください:</br><a href='http://forums.openmediavault.org/index.php/Thread/10921-openmediavault-docker-gui-Testing/?postID=101996#post102450' target='_blank'>リンク</a></br>この警告は設定タブで無効にできます"
 
 msgid ""
 "Please check the docker <a "
 "href='https://docs.docker.com/engine/userguide/networking/get-started-"
 "macvlan/' target='_blank'>macvlan documentation</a> for more details."
-msgstr ""
+msgstr "詳細についてはdocker <a href='https://docs.docker.com/engine/userguide/networking/get-started-macvlan/' target='_blank'>macvlanのドキュメント</a>を確認してください。"
 
 msgid "Please wait ..."
 msgstr "しばらくお待ちください ..."
@@ -302,22 +302,22 @@ msgid "Refresh"
 msgstr "リフレッシュ"
 
 msgid "Refresh image"
-msgstr ""
+msgstr "イメージのリフレッシュ"
 
 msgid "Repository"
 msgstr "リポジトリ"
 
 msgid "Restart"
-msgstr "リスタート"
+msgstr "再起動"
 
 msgid "Restart Policy"
-msgstr ""
+msgstr "再起動のポリシー"
 
 msgid "Run Image"
 msgstr "イメージの実行"
 
 msgid "Run cmd"
-msgstr ""
+msgstr "コマンドの実行"
 
 msgid "Run container"
 msgstr "コンテナの実行"
@@ -329,31 +329,31 @@ msgid "Run image"
 msgstr "イメージの実行"
 
 msgid "SCOPE"
-msgstr ""
+msgstr "スコープ"
 
 msgid "STATE"
-msgstr ""
+msgstr "状態"
 
 msgid "STATUS"
 msgstr "ステータス"
 
 msgid "SUBNET"
-msgstr ""
+msgstr "サブネット"
 
 msgid "Search"
 msgstr "検索"
 
 msgid "Searching..."
-msgstr ""
+msgstr "検索中 ..."
 
 msgid "Select a container..."
-msgstr ""
+msgstr "コンテナの選択 ..."
 
 msgid "Select a macvlan network ..."
-msgstr ""
+msgstr "macvlan ネットワークの選択 ..."
 
 msgid "Select macvlan network"
-msgstr ""
+msgstr "macvlan ネットワークの選択"
 
 msgid "Settings"
 msgstr "設定"
@@ -365,10 +365,10 @@ msgid "Stop"
 msgstr "ストップ"
 
 msgid "Subnet"
-msgstr ""
+msgstr "サブネット"
 
 msgid "Sync time with host"
-msgstr ""
+msgstr "ホストと時刻を同期"
 
 msgid "TAG"
 msgstr "タグ"
@@ -384,34 +384,34 @@ msgstr "Docker のベースパスの場所(この設定はオプションで、�
 
 msgid ""
 "These extra arguments will be passed to docker when running the container"
-msgstr ""
+msgstr "追加の引数はコンテナを実行するときにdockerに渡されます"
 
 msgid "This command and any arguments will be passed to the container"
-msgstr ""
+msgstr "このコマンドとすべての引数はコンテナに渡されます"
 
 msgid "This setting does not stop/disable or start/enable the docker daemon"
-msgstr ""
+msgstr "この設定は、dockerデーモンを停止/無効化または起動/有効化しません。"
 
 msgid "Undo"
-msgstr ""
+msgstr "取り消し"
 
 msgid "Update available. Click to refresh image"
-msgstr ""
+msgstr "アップデートが利用可能です。イメージのリフレッシュをクリックしてください"
 
 msgid "VIRTUAL SIZE"
 msgstr "仮想サイズ"
 
 msgid "Volumes"
-msgstr ""
+msgstr "ボリューム"
 
 msgid "Volumes and Bind mounts"
-msgstr ""
+msgstr "ボリュームとバインドマウント"
 
 msgid "Volumes from"
-msgstr ""
+msgstr "からのボリューム"
 
 msgid "Warn when modifying container"
-msgstr ""
+msgstr "コンテナの変更時に警告"
 
 msgid "Warning"
-msgstr ""
+msgstr "警告"
