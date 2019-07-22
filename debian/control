@@ -9,12 +9,12 @@ Homepage: http://omv-extras.org/
 
 Package: openmediavault-docker-gui
 Architecture: all
-Depends: docker-ce (>= 5:18.09),
-         docker-ce (<< 5:18.10),
+Depends: docker-ce (>= 5:19.03),
+         docker-ce (<< 5:19.04),
          jq,
          omvextras-common,
-         openmediavault (>= 4.0.5),
-         openmediavault-omvextrasorg (>= 4.0.2),
+         openmediavault (>= 4.1.23),
+         openmediavault-omvextrasorg (>= 4.1.15),
          php-curl,
          php-imagick,
          ${misc:Depends},
