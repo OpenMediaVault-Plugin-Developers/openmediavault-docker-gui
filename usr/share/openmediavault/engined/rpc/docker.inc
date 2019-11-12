@@ -224,31 +224,21 @@ class OMVRpcServiceDocker extends ServiceAbstract
             $params['tag'] = "latest";
         }
 
-        // Create a background process.
-        $bgStatusFilename = $this->createBgProcStatus();
-        $pid = $this->fork();
-        if ($pid > 0) {
-            $this->initializeBgProcStatus($bgStatusFilename, $pid);
-            return $bgStatusFilename;
-        }
-
-        // Child process.
-        try {
-            $bgOutputFilename = $this->createBgProcOutput();
-            $this->updateBgProcStatus(
-                $bgStatusFilename,
-                "outputfilename",
-                $bgOutputFilename
-            );
-            $cmd = "docker pull \"" . $params['repository'] . ":" .
-                $params['tag'] . "\"";
-            $this->exec($cmd, $output, $bgOutputFilename);
-            $this->finalizeBgProcStatus($bgStatusFilename, $output);
-
-        } catch(Exception $e) {
-            $this->finalizeBgProcStatus($bgStatusFilename, "", $e);
-            exit(1);
-        }
+        // Create the background process.
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+                use ($params) {
+            $cmdArgs = [];
+            $cmdArgs[] = "pull";
+            $cmdArgs[] = escapeshellarg(sprintf("%s:%s",
+                $params['repository'], $params['tag']));
+            $cmd = new \OMV\System\Process("docker", $cmdArgs);
+            if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+                $output, $bgOutputFilename))) {
+                throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+                    $exitStatus);
+            }
+            return $output;
+        });
     }
 
     /**
