@@ -66,6 +66,9 @@ _check_existing_sockets
 ### Whenever someone adds a tcp or another unix socket we have to make sure we also add the default /var/run/docker.sock that
 ### the plugin php backend uses.
 
+# Just in case that the folder does not exist
+mkdir -p ${OMV_DOCKERDAEMON_JSON_CONF%/*}
+
 if [ ! -f ${OMV_DOCKERDAEMON_JSON_CONF} ]; then
 	touch ${OMV_DOCKERDAEMON_JSON_CONF}
 else
