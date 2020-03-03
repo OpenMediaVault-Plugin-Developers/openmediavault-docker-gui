@@ -21,7 +21,7 @@ configure_docker:
   file.managed:
     - name: "/etc/docker/daemon.json"
     - source:
-      - salt://{{ slspath }}/files/etc-docker-daemon_json.j2
+      - salt://{{ tpldir }}/files/etc-docker-daemon_json.j2
     - template: jinja
     - context:
         config: {{ config | json }}
